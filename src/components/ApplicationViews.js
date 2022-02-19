@@ -8,6 +8,8 @@ import { CustomerList } from "./customer/CustomerList"
 import { AnimalDetail } from "./animal/AnimalDetail"
 import { LocationDetail } from "./location/LocationDetail"
 import { AnimalForm } from './animal/AnimalForm'
+import { LocationForm } from './location/LocationForm'
+
 
 
 export const ApplicationViews = () => {
@@ -19,6 +21,7 @@ export const ApplicationViews = () => {
                 // Locations Routes
                 <Route exact path="/locations" element={<LocationList />} />
                 <Route path="/locations/:locationId" element={<LocationDetail />} />
+                <Route path="/locations/create" element={<LocationForm />} />
 
                 // Animals Routes
                 <Route exact path="/animals" element={<AnimalList />} />

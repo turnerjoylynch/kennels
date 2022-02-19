@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addCustomer } from '../../modules/CustomerManager';
+import { getAllLocations } from '../../modules/LocationManager';
 import './CustomerForm.css'
 
 export const CustomerForm = () => {
-	// State will contain both customer data as well as an isLoading flag.
-	// Define the initial state of the form inputs with useState()
 
 	const [customer, setCustomer] = useState({
 		name: "",
-		breed: "",
-		locationId: 0,
-		customerId: 0
+		address: "",
+		locationId: 0
 	});
 
 	const [isLoading, setIsLoading] = useState(false);
 
-	// you will need the the `getAll` in the LocationsManager and CustomersManager to complete this section
 	const [locations, setLocations] = useState([]);
-	const [customers, setCustomers] = useState([]);
 
 	const navigate = useNavigate();
 
@@ -33,9 +29,7 @@ export const CustomerForm = () => {
 	}
 
     useEffect(() => {
-	}, []);
-
-     useEffect(() => {
+		getAllLocations().then(setLocations)
 	}, []);
 
 
@@ -43,10 +37,10 @@ export const CustomerForm = () => {
 		event.preventDefault() 
 
 		const locationId = customer.locationId
-		const customerId = customer.customerId
+		const animalId = animal.animalId
 
-		if (locationId === 0 || customerId === 0) {
-			window.alert("Please select a location and a customer")
+		if (locationId === 0) {
+			window.alert("Please select a location")
 		} else {
 			addCustomer(customer)
 				.then(() => navigate("/customers"))
@@ -82,18 +76,6 @@ export const CustomerForm = () => {
 				</div>
 			</fieldset>
 			<fieldset>
-				<div className="form-group">
-					<label htmlFor="employeeId">Employee: </label>
-					<select value={employee.employeeId} name="employee" id="employeeId" onChange={handleControlledInputChange} className="form-control" >
-						<option value="0">Select a Employee </option>
-						{customers.map(c => (
-							<option key={c.id} value={c.id}>
-								{c.name}
-							</option>
-						))}
-					</select>
-				</div>
-			</fieldset>
 			<button className="btn btn-primary"
 				onClick={handleClickSaveCustomer}>
 				Save Customer
